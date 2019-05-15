@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Validation from './Validation/Validation';
-import Char from './Char/Char';
 
 class App extends Component {
 	state = {
@@ -11,7 +9,7 @@ class App extends Component {
 			{ id: 2, name: 'pilar', age: 3 },
 			{ id: 3, name: 'bea', age: 3 },
 		],
-		showPersons: true,
+		showPersons: false,
 	};
 
 	switchNameHandler = newName => {
@@ -53,7 +51,8 @@ class App extends Component {
 
 	render() {
 		const style = {
-			backgroundColor: 'white',
+			backgroundColor: 'green',
+			color: 'white',
 			font: 'inherit',
 			border: '1px solid blue',
 			padding: '8px',
@@ -75,13 +74,23 @@ class App extends Component {
 					))}
 				</div>
 			);
+			style.backgroundColor = 'red';
+		}
+
+		const classes = [];
+		if (this.state.persons.length <= 2) {
+			classes.push('red');
+		}
+		if (this.state.persons.length <= 1) {
+			classes.push('bold');
 		}
 
 		return (
 			<div className="App">
 				<h1>Hi, I'm a React App!</h1>
+				<p className={classes.join(' ')}>This is really working!</p>
 				<button style={style} onClick={this.togglePersonsHandler}>
-					Switch name
+					Toggle Persons
 				</button>
 				{persons}
 			</div>
