@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Cockpit.module.css';
 
 const cockpit = props => {
+	// can add several useEffects
+	useEffect(() => {
+		// executed for every render cycle incl the first one
+		console.log('[Cockpit.js] useEffect');
+		// http request
+		setTimeout(() => {
+			alert('saved data!');
+		}, 1000);
+		return () => {
+			console.log('[Cockpit.js] Cleanup work in useEffect');
+		};
+	}, []);
+
+	useEffect(() => {
+		console.log('[Cockpit.js] 2nd useEffect');
+		return () => {
+			console.log('[Cockpit.js] Cleanup work in 2nd useEffect');
+		};
+	});
+
 	let btnStyle = '';
 	if (props.showPersons) {
 		btnStyle = classes.Red;
