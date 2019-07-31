@@ -5,6 +5,11 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		console.log('[App.js] constructor');
+	}
+
 	state = {
 		persons: [
 			{ id: 1, name: 'tess', age: 5 },
@@ -13,6 +18,19 @@ class App extends Component {
 		],
 		showPersons: false,
 	};
+
+	static getDerivedStateFromProps(props, state) {
+		console.log('[App.js] getDerivedStateFromProps', props);
+		return state;
+	}
+
+	componentWillMount() {
+		console.log('[App.js] componentWillMount');
+	}
+
+	componentDidMount() {
+		console.log('[App.js] componentDidMount');
+	}
 
 	switchNameHandler = newName => {
 		this.setState({
@@ -52,6 +70,7 @@ class App extends Component {
 	};
 
 	render() {
+		console.log('[App.js] render');
 		let persons = null;
 
 		if (this.state.showPersons) {
@@ -68,6 +87,7 @@ class App extends Component {
 			// wrap with StyleRoot to access features like media queries
 			<div className={classes.App}>
 				<Cockpit
+					title={this.props.appTitle}
 					persons={this.state.persons}
 					showPersons={this.state.showPersons}
 					clicked={this.togglePersonsHandler}
