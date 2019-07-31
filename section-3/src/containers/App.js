@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import styles from './App.module.css';
-import Person from './Person/Person';
+import classes from './App.module.css';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
 	state = {
@@ -53,44 +54,24 @@ class App extends Component {
 	render() {
 		let persons = null;
 
-		let btnStyle = '';
-
-		console.dir(styles);
-
 		if (this.state.showPersons) {
 			persons = (
-				<div>
-					{this.state.persons.map(({ id, name, age }, index) => (
-						<Person
-							key={id}
-							name={name}
-							age={age}
-							click={() => this.deletePersonHandler(index)}
-							changed={event => this.nameChangedhandler(event, id)}
-						/>
-					))}
-				</div>
+				<Persons
+					persons={this.state.persons}
+					clicked={this.deletePersonHandler}
+					changed={this.nameChangedhandler}
+				/>
 			);
-
-			btnStyle = styles.Red;
-		}
-
-		const classes = [];
-		if (this.state.persons.length <= 2) {
-			classes.push(styles.red);
-		}
-		if (this.state.persons.length <= 1) {
-			classes.push(styles.bold);
 		}
 
 		return (
 			// wrap with StyleRoot to access features like media queries
-			<div className={styles.App}>
-				<h1>Hi, I'm a React App!</h1>
-				<p className={classes.join(' ')}>This is really working!</p>
-				<button className={btnStyle} onClick={this.togglePersonsHandler}>
-					Toggle Persons
-				</button>
+			<div className={classes.App}>
+				<Cockpit
+					persons={this.state.persons}
+					showPersons={this.state.showPersons}
+					clicked={this.togglePersonsHandler}
+				/>
 				{persons}
 			</div>
 		);
