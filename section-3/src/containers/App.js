@@ -5,6 +5,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Auxiliary';
 import withClass from '../hoc/withClass';
 import classes from './App.module.css';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
 	constructor(props) {
@@ -111,16 +112,24 @@ class App extends Component {
 				<button onClick={() => this.setState({ showCockpit: false })}>
 					Remove Cockpit
 				</button>
-				{this.state.showCockpit ? (
-					<Cockpit
-						title={this.props.appTitle}
-						personsLength={this.state.persons.length}
-						showPersons={this.state.showPersons}
-						clicked={this.togglePersonsHandler}
-						login={this.loginHandler}
-					/>
-				) : null}
-				{persons}
+				{/* wrap only elements that need access to AuthContext */}
+				{/* changing values in context is not enough for rerender, you need to use state values */}
+				<AuthContext.Provider
+					value={{
+						authenticated: this.state.authenticated,
+						login: this.loginHandler,
+					}}
+				>
+					{this.state.showCockpit ? (
+						<Cockpit
+							title={this.props.appTitle}
+							personsLength={this.state.persons.length}
+							showPersons={this.state.showPersons}
+							clicked={this.togglePersonsHandler}
+						/>
+					) : null}
+					{persons}
+				</AuthContext.Provider>
 			</Aux>
 		);
 	}
