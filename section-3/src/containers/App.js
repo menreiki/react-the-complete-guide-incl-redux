@@ -97,12 +97,8 @@ class App extends Component {
 		return (
 			// wrap with StyleRoot to access features like media queries
 			<div className={classes.App}>
-				<button
-					onClick={() =>
-						this.setState({ showCockpit: !this.state.showCockpit })
-					}
-				>
-					Toggle Cockpit
+				<button onClick={() => this.setState({ showCockpit: false })}>
+					Remove Cockpit
 				</button>
 				{this.state.showCockpit ? (
 					<Cockpit

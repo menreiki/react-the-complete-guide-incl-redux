@@ -7,10 +7,11 @@ const cockpit = props => {
 		// executed for every render cycle incl the first one
 		console.log('[Cockpit.js] useEffect');
 		// http request
-		setTimeout(() => {
+		const timer = setTimeout(() => {
 			alert('saved data!');
 		}, 1000);
 		return () => {
+			clearTimeout(timer);
 			console.log('[Cockpit.js] Cleanup work in useEffect');
 		};
 	}, []);
