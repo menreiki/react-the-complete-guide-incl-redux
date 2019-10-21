@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import Aux from '../../../hoc/Auxiliary';
+import React, { Component, Fragment } from 'react';
 import styles from './Person.css';
 
 class Person extends Component {
 	render() {
 		console.log('[Person.js] rendering...');
 		return (
-			<Aux>
+			<Fragment>
 				<p onClick={this.props.click}>
 					I am {this.props.name} and I am {this.props.age}yo!
 				</p>
@@ -16,7 +15,7 @@ class Person extends Component {
 					value={this.props.name}
 					onChange={this.props.changed}
 				/>
-			</Aux>
+			</Fragment>
 		);
 	}
 }
