@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import classes from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import WithClass from '../hoc/WithClass';
+import Aux from '../hoc/Auxiliary';
+import withClass from '../hoc/withClass';
 
 class App extends Component {
 	constructor(props) {
@@ -97,7 +98,7 @@ class App extends Component {
 
 		return (
 			// wrap with StyleRoot to access features like media queries
-			<WithClass classes={classes.App}>
+			<Aux classes={classes.App}>
 				<button onClick={() => this.setState({ showCockpit: false })}>
 					Remove Cockpit
 				</button>
@@ -110,10 +111,10 @@ class App extends Component {
 					/>
 				) : null}
 				{persons}
-			</WithClass>
+			</Aux>
 		);
 	}
 }
 
 //wrap export with Radium to use pseudo selectors
-export default App;
+export default withClass(App, classes.App);
